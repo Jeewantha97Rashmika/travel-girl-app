@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import FixedBottomNavigation from "./layouts/commen/FixedBottomNavigation";
-import ProtectedRoute from "./routes/ProtectedRoute";
+
 import Location from "./pages/Location";
 function App() {
   const location = useLocation();
@@ -24,7 +24,7 @@ function App() {
             }
           />
         </Routes>
-        {location.pathname === "/login" || location.pathname == "/signup" ? (
+        {location.pathname === "/login" || location.pathname === "/signup" ? (
           <></>
         ) : (
           <FixedBottomNavigation />
