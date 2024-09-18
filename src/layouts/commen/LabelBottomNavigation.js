@@ -8,18 +8,25 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useNavigate } from "react-router-dom";
 
 export default function LabelBottomNavigation() {
-    const [value, setValue] = React.useState("home");
-    const navigate = useNavigate();  // useNavigate for routing
-  
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-      // Navigate to the selected page
-      navigate(`/${newValue}`);
-    };
-  
+  const [value, setValue] = React.useState("home");
+  const navigate = useNavigate(); // useNavigate for routing
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    // Navigate to the selected page
+    navigate(`/${newValue}`);
+  };
+
   return (
     <BottomNavigation
-      sx={{ width: 360, position: "fixed", bottom: 20 ,backgroundColor:'#F5F5FA', borderRadius: '20px', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)' }}
+      sx={{
+        width: "100%",
+        position: "fixed",
+        bottom: 20,
+        backgroundColor: "#F5F5FA",
+        borderRadius: "20px",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.15)",
+      }}
       value={value}
       onChange={handleChange}
     >

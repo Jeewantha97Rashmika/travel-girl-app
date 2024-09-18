@@ -1,109 +1,127 @@
-import React from "react";
-import { Box, Button, Container } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, Container, TextField } from "@mui/material";
 import LoginImage from "../assets/images/cuate.png";
-import TextField from "@mui/material/TextField";
+import { createUserWithEmailAndPassword } from "firebase/auth"; // Firebase methods
+import { auth, db } from "../firebase/services"; // Import Firestore (db)
+import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore"; // Firestore methods
 
 export default function SignupLayout() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Save additional user data to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        name,
+        age,
+        email,
+        createdAt: new Date().toISOString(),
+      });
+
+      console.log("User signed up and additional data saved:", user);
+
+      // Navigate to login after signup
+      navigate("/login");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
-    <div>
-      <Container>
-        <Box>
-          <img src={LoginImage} alt="login" width={"50%"} />
-        </Box>
-        <h1>Login</h1>
+    <Container>
+      <Box>
+        <img src={LoginImage} alt="login" width={"50%"} />
+      </Box>
+      <h1>Sign Up</h1>
 
-        <label
-          style={{
-            textAlign: "left",
-            display: "flex",
-          }}
-        >
-          Name
-        </label>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <form onSubmit={handleSignUp}>
+     
         <TextField
-          id="outlined-basic"
-          label="Outlined"
+          label="Name"
           variant="outlined"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           sx={{
             width: "100%",
             mb: 2,
           }}
         />
 
-        <label
-          style={{
-            textAlign: "left",
-            display: "flex",
-          }}
-        >
-          Age
-        </label>
+       
         <TextField
-          id="outlined-basic"
-          label="Outlined"
+          label="Age"
           variant="outlined"
-          sx={{
-            width: "100%",
-            mb: 2,
-          }}
-        />
-        <label
-          style={{
-            textAlign: "left",
-            display: "flex",
-          }}
-        >
-          Email
-        </label>
-        <TextField
-          id="outlined-basic"
-          label="Outlined"
-          variant="outlined"
-          sx={{
-            width: "100%",
-            mb: 2,
-          }}
-        />
-        <label
-          style={{
-            textAlign: "left",
-            display: "flex",
-          }}
-        >
-          Password
-        </label>
-        <TextField
-          id="outlined-basic"
-          label="Outlined"
-          variant="outlined"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
           sx={{
             width: "100%",
             mb: 2,
           }}
         />
 
-        <label
-          style={{
-            textAlign: "left",
-            display: "flex",
-          }}
-        >
-          Conform Password
-        </label>
+      
         <TextField
-          id="outlined-basic"
-          label="Outlined"
+          label="Email"
           variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           sx={{
             width: "100%",
+            mb: 2,
           }}
         />
-        <Box
+
+      
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           sx={{
-            mt: 5,
+            width: "100%",
+            mb: 2,
           }}
-        >
+        />
+
+      
+        <TextField
+          label="Confirm Password"
+          variant="outlined"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          sx={{
+            width: "100%",
+            mb: 2,
+          }}
+        />
+
+        <Box sx={{ mt: 5 }}>
           <Button
+            type="submit"
             variant="contained"
             sx={{
               width: "100%",
@@ -113,11 +131,12 @@ export default function SignupLayout() {
           >
             Sign up
           </Button>
-          <p>
-            I already have an account? <a href="/login">Login</a>
-          </p>
         </Box>
-      </Container>
-    </div>
+      </form>
+
+      <p>
+        I already have an account? <a href="/login">Login</a>
+      </p>
+    </Container>
   );
 }

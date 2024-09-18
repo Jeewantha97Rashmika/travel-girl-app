@@ -5,6 +5,7 @@ import HomeImage from "../assets/images/homeImage.png";
 import SosButton from "../components/SosButton";
 import TypeOfEmergencySection from "./home/TypeOfEmergencySection";
 import LabelBottomNavigation from "./commen/LabelBottomNavigation";
+import FixedBottomNavigation from "./commen/FixedBottomNavigation";
 export default function HomeLayout() {
   return (
     <Container>
@@ -53,7 +54,12 @@ export default function HomeLayout() {
       <Box>
         <TypeOfEmergencySection />
       </Box>
-      <LabelBottomNavigation/>
+      <Box sx={{
+        width: "100%",
+      }}>
+
+   
+      </Box>
     </Container>
   );
 }
