@@ -4,8 +4,7 @@ import Grid from "@mui/material/Grid2";
 import HomeImage from "../assets/images/homeImage.png";
 import SosButton from "../components/SosButton";
 import TypeOfEmergencySection from "./home/TypeOfEmergencySection";
-import LabelBottomNavigation from "./commen/LabelBottomNavigation";
-import FixedBottomNavigation from "./commen/FixedBottomNavigation";
+
 export default function HomeLayout() {
   return (
     <Container>
