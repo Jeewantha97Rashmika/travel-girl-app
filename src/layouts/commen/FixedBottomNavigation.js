@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import NotListedLocationIcon from "@mui/icons-material/NotListedLocation";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 export default function FixedBottomNavigation() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate(); // Use useNavigate to programmatically navigate
@@ -33,9 +33,12 @@ export default function FixedBottomNavigation() {
         onChange={(event, newValue) => handleNavigation(newValue)}
       >
         <BottomNavigationAction label="Home" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="My circel" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Location" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Profile" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="My circel" icon={<AccountBoxIcon />} />
+        <BottomNavigationAction
+          label="Location"
+          icon={<NotListedLocationIcon />}
+        />
+        <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
       </BottomNavigation>
     </Paper>
   );

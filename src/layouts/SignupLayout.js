@@ -6,6 +6,7 @@ import { auth, db } from "../firebase/services"; // Import Firestore (db)
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore"; // Firestore methods
 
+
 export default function SignupLayout() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,6 +50,7 @@ export default function SignupLayout() {
 
   return (
     <Container>
+ 
       <Box>
         <img src={LoginImage} alt="login" width={"50%"} />
       </Box>

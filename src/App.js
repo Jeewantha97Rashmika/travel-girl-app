@@ -31,6 +31,7 @@ function App() {
         {location.pathname === "/login" || location.pathname === "/signup" ? (
           <></>
         ) : (
+          
           <FixedBottomNavigation />
         )}
       </header>

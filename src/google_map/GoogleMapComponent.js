@@ -66,9 +66,7 @@ const LiveLocationGoogleMap = () => {
 
   return (
     <div
-      style={{
-        minWidth: "380px",
-      }}
+     
     >
       {error ? (
         <p>Error: {error}</p>

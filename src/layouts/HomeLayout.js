@@ -4,9 +4,13 @@ import Grid from "@mui/material/Grid2";
 import HomeImage from "../assets/images/homeImage.png";
 import SosButton from "../components/SosButton";
 import TypeOfEmergencySection from "./home/TypeOfEmergencySection";
+import Header from "./commen/Header";
 
 export default function HomeLayout() {
   return (
+    <div>
+      <Header title="Welcome to Travel Girl" />
+
     <Container>
       <Box>
         <Grid container spacing={2}>
@@ -18,7 +22,7 @@ export default function HomeLayout() {
                 textAlign: "left",
                 color: "#000000",
               }}
-            >
+              >
               Are you in an emergency?
             </Typography>
             <Typography
@@ -26,7 +30,7 @@ export default function HomeLayout() {
                 fontSize: "15px",
                 textAlign: "left",
               }}
-            >
+              >
               Press the SOS button, your live location will be shared wih the
               nearest help centre and your emergency contacts
             </Typography>
@@ -47,7 +51,7 @@ export default function HomeLayout() {
           justifyContent: "center",
           alignItems: "center",
         }}
-      >
+        >
         <SosButton />
       </Box>
       <Box>
@@ -60,5 +64,6 @@ export default function HomeLayout() {
    
       </Box>
     </Container>
+        </div>
   );
 }
