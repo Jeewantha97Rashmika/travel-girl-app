@@ -65,9 +65,9 @@ const LiveLocationGoogleMap = () => {
   };
 
   return (
-    <div
-     
-    >
+    <div>
+      <h2>Live Location Detector with Google Maps</h2>
+
       {error ? (
         <p>Error: {error}</p>
       ) : location.lat && location.lng ? (
@@ -82,18 +82,22 @@ const LiveLocationGoogleMap = () => {
               <Marker position={location} />
             </GoogleMap>
           </LoadScript>
-<br/>
-          <Button variant="contained"sx={{
-            backgroundColor: "black",
-            color: "white",
-            borderRadius: "20px",
-            textTransform: "none",
-            width:{xs:"100%",sm:"200px"},
-            "&:hover": {
-              backgroundColor: "white",
-              color: "black",
-            },
-          }} onClick={handleShareLocation}>
+          <br />
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "black",
+              color: "white",
+              borderRadius: "20px",
+              textTransform: "none",
+              width: { xs: "100%", sm: "200px" },
+              "&:hover": {
+                backgroundColor: "white",
+                color: "black",
+              },
+            }}
+            onClick={handleShareLocation}
+          >
             Share My Location
           </Button>
         </>

@@ -7,7 +7,7 @@ export default function LocationLayout() {
   return (
     <div
       style={{
-        width: "430px",
+        width: "100%",
       }}
     >
       <Header title="Explore Location" />
