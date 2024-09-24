@@ -3,7 +3,11 @@ import HomeLayout from "../layouts/HomeLayout";
 
 export default function Home() {
   return (
-    <div>
+    <div
+      style={{
+        margin: "0 auto",
+      }}
+    >
       <HomeLayout />
     </div>
   );

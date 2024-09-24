@@ -8,7 +8,7 @@ import Header from "./commen/Header";
 
 export default function HomeLayout() {
   return (
-    <div>
+    <div >
       <Header title="Welcome to Travel Girl" />
 
     <Container>
