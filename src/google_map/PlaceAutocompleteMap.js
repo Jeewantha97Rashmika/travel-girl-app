@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-// Load the Google Maps script dynamically
+
 const loadGoogleMapsScript = (callback) => {
   const existingScript = document.getElementById('google-maps');
   if (!existingScript) {

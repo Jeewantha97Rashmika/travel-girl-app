@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Box, Button, Container, TextField } from "@mui/material";
 import LoginImage from "../assets/images/cuate.png";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase methods
-import { auth } from "../firebase/services"; // Import your Firebase configuration (make sure to configure Firebase)
+import { signInWithEmailAndPassword } from "firebase/auth"; 
+import { auth } from "../firebase/services";
 import { useNavigate } from "react-router-dom";
+
 export default function LoginLayout() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
