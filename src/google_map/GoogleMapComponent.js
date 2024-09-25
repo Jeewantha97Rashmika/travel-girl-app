@@ -20,6 +20,7 @@ const mapStyles = [
 const containerStyle = {
   width: "100%",
   height: "600px",
+  borderRadius: "20px",
 };
 
 const LiveLocationGoogleMap = () => {
@@ -66,7 +67,7 @@ const LiveLocationGoogleMap = () => {
 
   return (
     <div>
-      <h2>Live Location Detector with Google Maps</h2>
+     
 
       {error ? (
         <p>Error: {error}</p>

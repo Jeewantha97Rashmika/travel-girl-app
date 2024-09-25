@@ -5,8 +5,49 @@ import HomeImage from "../assets/images/homeImage.png";
 import SosButton from "../components/SosButton";
 import TypeOfEmergencySection from "./home/TypeOfEmergencySection";
 import Header from "./commen/Header";
-
+import { useState, useEffect } from "react";
 export default function HomeLayout() {
+  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.watchPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
+  const handleShareLocation = () => {
+    const locationUrl = `https://www.google.com/maps?q=${location.lat},${location.lng}`;
+
+    // Check if the Web Share API is supported
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "My Live Location",
+          text: "Here is my live location!",
+          url: locationUrl,
+        })
+        .catch((error) => console.error("Error sharing:", error));
+    } else {
+      // Fallback: Copy link to clipboard
+      navigator.clipboard.writeText(locationUrl).then(() => {
+        alert("Location link copied to clipboard!");
+      });
+    }
+  };
+
   return (
     <div >
       <Header title="Welcome to Travel Girl" />
@@ -52,7 +93,7 @@ export default function HomeLayout() {
           alignItems: "center",
         }}
         >
-        <SosButton />
+        <SosButton handleShareLocation={handleShareLocation} />
       </Box>
       <Box>
         <TypeOfEmergencySection />

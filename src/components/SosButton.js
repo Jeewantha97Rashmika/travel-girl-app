@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function SosButton() {
+export default function SosButton({
+  handleShareLocation
+}) {
   const buttonStyle = {
     display: "flex",
     justifyContent: "center",
@@ -28,7 +30,7 @@ export default function SosButton() {
     fontWeight: "normal",
   };
   return (
-    <div style={buttonStyle}>
+    <div style={buttonStyle} onClick={handleShareLocation}>
       <div>SOS</div>
       <div style={subTextStyle}>Press 3 for second</div>
     </div>

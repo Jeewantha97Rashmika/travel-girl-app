@@ -1,6 +1,7 @@
 import React from "react";
-import { Box,  Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+
 export default function ContactCard({ name, tpNumber }) {
   return (
     <Box
@@ -47,7 +48,12 @@ export default function ContactCard({ name, tpNumber }) {
                 color: "#000000",
               }}
             >
-              {tpNumber}
+              <a
+                href={`tel:${tpNumber}`}
+                style={{ textDecoration: "none", color: "#000000" }}
+              >
+                {tpNumber}
+              </a>
             </Typography>
           </Box>
         </Grid>
