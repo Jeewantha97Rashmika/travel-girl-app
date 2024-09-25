@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 export default function HomeLayout() {
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [error, setError] = useState(null);
+  console.log(error);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -49,62 +50,61 @@ export default function HomeLayout() {
   };
 
   return (
-    <div >
+    <div>
       <Header title="Welcome to Travel Girl" />
 
-    <Container>
-      <Box>
-        <Grid container spacing={2}>
-          <Grid size={6}>
-            <Typography
-              sx={{
-                fontSize: "22px",
-                fontWeight: "bold",
-                textAlign: "left",
-                color: "#000000",
-              }}
+      <Container>
+        <Box>
+          <Grid container spacing={2}>
+            <Grid size={6}>
+              <Typography
+                sx={{
+                  fontSize: "22px",
+                  fontWeight: "bold",
+                  textAlign: "left",
+                  color: "#000000",
+                }}
               >
-              Are you in an emergency?
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "15px",
-                textAlign: "left",
-              }}
+                Are you in an emergency?
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "15px",
+                  textAlign: "left",
+                }}
               >
-              Press the SOS button, your live location will be shared wih the
-              nearest help centre and your emergency contacts
-            </Typography>
+                Press the SOS button, your live location will be shared wih the
+                nearest help centre and your emergency contacts
+              </Typography>
+            </Grid>
+            <Grid size={6}>
+              <img src={HomeImage} alt="HomeImage" />
+            </Grid>
           </Grid>
-          <Grid size={6}>
-            <img src={HomeImage} alt="HomeImage" />
-          </Grid>
-        </Grid>
-      </Box>
-      <Box
-        sx={{
-          mt: 4,
-          backgroundColor: "#F5F5FA",
-          width: "100%",
-          height: "15rem",
-          borderRadius: "1rem",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        </Box>
+        <Box
+          sx={{
+            mt: 4,
+            backgroundColor: "#F5F5FA",
+            width: "100%",
+            height: "15rem",
+            borderRadius: "1rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-        <SosButton handleShareLocation={handleShareLocation} />
-      </Box>
-      <Box>
-        <TypeOfEmergencySection />
-      </Box>
-      <Box sx={{
-        width: "100%",
-      }}>
-
-   
-      </Box>
-    </Container>
-        </div>
+          <SosButton handleShareLocation={handleShareLocation} />
+        </Box>
+        <Box>
+          <TypeOfEmergencySection />
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+          }}
+        ></Box>
+      </Container>
+    </div>
   );
 }
