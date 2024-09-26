@@ -145,11 +145,20 @@ export default function SignupLayout() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          mt:2
+          mt: 2,
         }}
       >
         <Typography>
-          I already have an account? <a href="/login">Login</a>
+          I already have an account?{" "}
+          <span
+            style={{
+              color: "#FF8852",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </span>
         </Typography>
       </Box>
     </Container>

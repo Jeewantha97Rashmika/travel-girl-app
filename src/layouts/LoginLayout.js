@@ -103,7 +103,11 @@ export default function LoginLayout() {
             }}
           >
             <p style={{ fontSize: "14px" }}>
-              Don't have an account? <a href="/signup">Sign Up</a>
+              Don't have an account?{" "}
+              <span style={{
+                color: "#FF8852",
+                cursor: "pointer",
+              }}onClick={() => navigate("/signup")}>Sign Up</span>
             </p>
           </Box>
         </Box>
