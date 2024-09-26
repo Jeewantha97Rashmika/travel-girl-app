@@ -20,7 +20,7 @@ export default function LoginLayout() {
         password
       );
       console.log("User logged in:", userCredential.user);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -104,10 +104,15 @@ export default function LoginLayout() {
           >
             <p style={{ fontSize: "14px" }}>
               Don't have an account?{" "}
-              <span style={{
-                color: "#FF8852",
-                cursor: "pointer",
-              }}onClick={() => navigate("/signup")}>Sign Up</span>
+              <span
+                style={{
+                  color: "#FF8852",
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </span>
             </p>
           </Box>
         </Box>

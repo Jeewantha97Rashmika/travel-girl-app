@@ -38,7 +38,7 @@ function App() {
 
           {/* Protected routes */}
           <Route
-            path="/home"
+            path="/"
             element={user ? <Home /> : <Navigate to="/login" />}
           />
           <Route

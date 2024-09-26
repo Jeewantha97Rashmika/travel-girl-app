@@ -12,7 +12,7 @@ export default function FixedBottomNavigation() {
   const handleNavigation = (newValue) => {
     setValue(newValue);
     if (newValue === 0) {
-      navigate("/home");
+      navigate("/");
     } else if (newValue === 1) {
       navigate("/my_circle");
     } else if (newValue === 2) {
