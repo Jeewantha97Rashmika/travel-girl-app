@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-    Box,
-  Button,
-
-  Avatar,
-  Container,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Avatar, Container, Typography } from "@mui/material";
 import { db, storage, auth } from "../firebase/services"; // Ensure Firebase setup is done
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -17,28 +10,28 @@ export default function ProfileLayout({ user }) {
   const [profilePic, setProfilePic] = useState(null); // Profile picture file
   const [profilePicURL, setProfilePicURL] = useState(""); // Profile picture URL
   const [loading, setLoading] = useState(true); // To manage loading state
+  console.log(userData, loading);
 
- 
-    useEffect(() => {
-      const fetchUserData = async () => {
-        const user = auth.currentUser; // Assuming user is authenticated
-        if (user) {
-          const userDocRef = doc(db, 'users', user.uid);
-          const userSnapshot = await getDoc(userDocRef);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser; // Assuming user is authenticated
+      if (user) {
+        const userDocRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userDocRef);
 
-          if (userSnapshot.exists()) {
-            const userData = userSnapshot.data();
-            setUserData(userData);
-            if (userData.profilePicURL) {
-              setProfilePicURL(userData.profilePicURL);
-            }
+        if (userSnapshot.exists()) {
+          const userData = userSnapshot.data();
+          setUserData(userData);
+          if (userData.profilePicURL) {
+            setProfilePicURL(userData.profilePicURL);
           }
         }
-        setLoading(false);
-      };
+      }
+      setLoading(false);
+    };
 
-      fetchUserData();
-    }, []);
+    fetchUserData();
+  }, []);
 
   console.log(user);
 
@@ -93,35 +86,39 @@ export default function ProfileLayout({ user }) {
 
         {/* Upload Profile Picture */}
         <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "16px",
-      }}
-    >
-      <Typography variant="body1" sx={{ mb: 2 }}>
-        Upload Profile Picture
-      </Typography>
-      
-      {/* Styled input for file */}
-      <input
-        accept="image/*"
-        style={{ display: "none" }} // Hide the default input
-        id="profile-pic-upload"
-        type="file"
-        onChange={handleProfilePicChange}
-      />
-      <label htmlFor="profile-pic-upload">
-        <Button variant="contained" component="span" sx={{
-            textTransform: "none",
-            borderRadius: "30px",
-            backgroundColor: "#333",
-        }}>
-          Choose File
-        </Button>
-      </label>
-    </Box>
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: "16px",
+          }}
+        >
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            Upload Profile Picture
+          </Typography>
+
+          {/* Styled input for file */}
+          <input
+            accept="image/*"
+            style={{ display: "none" }} // Hide the default input
+            id="profile-pic-upload"
+            type="file"
+            onChange={handleProfilePicChange}
+          />
+          <label htmlFor="profile-pic-upload">
+            <Button
+              variant="contained"
+              component="span"
+              sx={{
+                textTransform: "none",
+                borderRadius: "30px",
+                backgroundColor: "#333",
+              }}
+            >
+              Choose File
+            </Button>
+          </label>
+        </Box>
         <Button
           variant="contained"
           onClick={handleProfilePicUpload}
