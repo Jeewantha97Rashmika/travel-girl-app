@@ -1,8 +1,10 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Avatar, IconButton } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PhoneIcon from "@mui/icons-material/Phone";
 
-export default function ContactCard({ name, tpNumber }) {
+export default function ContactCard({ name, tpNumber, photoURL, onDelete }) {
   return (
     <Box
       sx={{
@@ -12,16 +14,13 @@ export default function ContactCard({ name, tpNumber }) {
         marginBottom: "20px",
       }}
     >
-      <Grid container>
+      <Grid container alignItems="center">
         <Grid size={3}>
-          <Box
-            sx={{
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              backgroundColor: "red",
-            }}
-          ></Box>
+          <Avatar
+            src={photoURL}
+            alt={name}
+            sx={{ width: 56, height: 56, marginRight: "16px" }}
+          />
         </Grid>
         <Grid size={6}>
           <Box
@@ -56,6 +55,22 @@ export default function ContactCard({ name, tpNumber }) {
               </a>
             </Typography>
           </Box>
+        </Grid>
+        <Grid
+          size={3}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          {/* Call Icon */}
+          <IconButton href={`tel:${tpNumber}`} aria-label="call">
+            <PhoneIcon sx={{ color: "#000000" }} />
+          </IconButton>
+          {/* Delete Icon */}
+          <IconButton onClick={onDelete} aria-label="delete">
+            <DeleteIcon sx={{ color: "#FF0000" }} />
+          </IconButton>
         </Grid>
       </Grid>
     </Box>
