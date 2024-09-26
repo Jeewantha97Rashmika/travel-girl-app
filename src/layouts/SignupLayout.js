@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Box, Button, Container, TextField } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import LoginImage from "../assets/images/cuate.png";
 import { createUserWithEmailAndPassword } from "firebase/auth"; // Firebase methods
 import { auth, db } from "../firebase/services"; // Import Firestore (db)
 import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore"; // Firestore methods
-
 
 export default function SignupLayout() {
   const [email, setEmail] = useState("");
@@ -28,7 +27,11 @@ export default function SignupLayout() {
 
     try {
       // Create user with email and password
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
       // Save additional user data to Firestore
@@ -50,8 +53,14 @@ export default function SignupLayout() {
 
   return (
     <Container>
- 
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mt: 10,
+        }}
+      >
         <img src={LoginImage} alt="login" width={"50%"} />
       </Box>
       <h1>Sign Up</h1>
@@ -59,7 +68,6 @@ export default function SignupLayout() {
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <form onSubmit={handleSignUp}>
-     
         <TextField
           label="Name"
           variant="outlined"
@@ -71,7 +79,6 @@ export default function SignupLayout() {
           }}
         />
 
-       
         <TextField
           label="Age"
           variant="outlined"
@@ -83,7 +90,6 @@ export default function SignupLayout() {
           }}
         />
 
-      
         <TextField
           label="Email"
           variant="outlined"
@@ -95,7 +101,6 @@ export default function SignupLayout() {
           }}
         />
 
-      
         <TextField
           label="Password"
           variant="outlined"
@@ -108,7 +113,6 @@ export default function SignupLayout() {
           }}
         />
 
-      
         <TextField
           label="Confirm Password"
           variant="outlined"
@@ -135,10 +139,19 @@ export default function SignupLayout() {
           </Button>
         </Box>
       </form>
-
-      <p>
-        I already have an account? <a href="/login">Login</a>
-      </p>
+      <Box
+        sx={{
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          mt:2
+        }}
+      >
+        <Typography>
+          I already have an account? <a href="/login">Login</a>
+        </Typography>
+      </Box>
     </Container>
   );
 }

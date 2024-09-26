@@ -4,14 +4,15 @@ import { db, storage, auth } from "../firebase/services"; // Ensure Firebase set
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Header from "./commen/Header";
-
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 export default function ProfileLayout({ user }) {
   const [userData, setUserData] = useState({}); // To store user info
   const [profilePic, setProfilePic] = useState(null); // Profile picture file
   const [profilePicURL, setProfilePicURL] = useState(""); // Profile picture URL
   const [loading, setLoading] = useState(true); // To manage loading state
   console.log(userData, loading);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUserData = async () => {
       const user = auth.currentUser; // Assuming user is authenticated
@@ -39,7 +40,14 @@ export default function ProfileLayout({ user }) {
   const handleProfilePicChange = (e) => {
     setProfilePic(e.target.files[0]);
   };
-
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Firebase signOut method
+      navigate("/login"); // Redirect to login page
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
+  };
   // Handle profile picture upload
   const handleProfilePicUpload = async () => {
     if (profilePic) {
@@ -83,7 +91,21 @@ export default function ProfileLayout({ user }) {
           alt="Profile"
           sx={{ width: 100, height: 100, mb: 2, border: "1px solid gray" }}
         />
-
+        <Typography
+          sx={{
+            fontSize: "16px",
+            fontWeight: "bold",
+            textAlign: "left",
+            color: "#000000",
+            backgroundColor: "#F5F5FA",
+            padding: "10px",
+            borderRadius: "20px",
+            mb: 3,
+          }}
+        >
+          {" "}
+          {user.email}
+        </Typography>
         {/* Upload Profile Picture */}
         <Box
           sx={{
@@ -123,7 +145,7 @@ export default function ProfileLayout({ user }) {
           variant="contained"
           onClick={handleProfilePicUpload}
           sx={{
-            mb: 3,
+            mb: 1,
             textTransform: "none",
             borderRadius: "30px",
             width: "300px",
@@ -143,7 +165,22 @@ export default function ProfileLayout({ user }) {
           readOnly: true,
         }}
       /> */}
-        <Typography> {user.email}</Typography>
+
+        <Box>
+          <Button
+            variant="outlined"
+            onClick={handleLogout}
+            sx={{
+              mt: 1,
+              textTransform: "none",
+              borderRadius: "30px",
+              width: "300px",
+              //   backgroundImage: "linear-gradient(135deg, #ff7e5f, #feb47b)",
+            }}
+          >
+            Logout
+          </Button>
+        </Box>
       </Container>
     </div>
   );

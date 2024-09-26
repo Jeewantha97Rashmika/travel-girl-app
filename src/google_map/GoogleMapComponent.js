@@ -19,7 +19,7 @@ const mapStyles = [
 
 const containerStyle = {
   width: "100%",
-  height: "600px",
+  height: "500px",
   borderRadius: "20px",
 };
 
