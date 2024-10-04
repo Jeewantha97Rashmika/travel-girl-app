@@ -8,12 +8,21 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-  Alert ,
+  Alert,
 } from "@mui/material";
 import Header from "./commen/Header";
 import ContactCard from "../components/ContactCard";
-import { db, storage } from "../firebase/services"; // import Firebase storage
-import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db, storage, auth } from "../firebase/services"; // import Firebase storage
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  getDoc,
+} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // import Firebase storage methods
 
 export default function MtCircelLayout() {
@@ -38,10 +47,35 @@ export default function MtCircelLayout() {
     setProfilePhoto(e.target.files[0]);
   };
 
+  const handleDeleteContact = async (id) => {
+    try {
+      const user = auth.currentUser; // Get the current authenticated user
+      if (!user) {
+        throw new Error("No user is logged in");
+      }
+
+      const contactDoc = await getDoc(doc(db, "contacts", id));
+      if (contactDoc.exists() && contactDoc.data().userId === user.uid) {
+        await deleteDoc(doc(db, "contacts", id));
+        <Alert severity="success">This is a success Alert.</Alert>;
+        fetchContacts(); // Refresh the contact list
+      } else {
+        console.error("You can only delete your own contacts");
+      }
+    } catch (error) {
+      console.error("Error deleting contact: ", error);
+    }
+  };
+
   // Function to save data to Firebase
   const handleSave = async () => {
     if (name && tpNumber && profilePhoto) {
       try {
+        const user = auth.currentUser; // Get the current authenticated user
+        if (!user) {
+          throw new Error("No user is logged in");
+        }
+
         // Step 1: Upload the photo to Firebase Storage
         const storageRef = ref(storage, `profilePhotos/${profilePhoto.name}`);
         const snapshot = await uploadBytes(storageRef, profilePhoto);
@@ -52,6 +86,7 @@ export default function MtCircelLayout() {
           name: name,
           tpNumber: tpNumber,
           photoURL: photoURL, // Save the photo URL
+          userId: user.uid, // Save the user ID to associate this contact with the current user
         });
 
         // Reset the form and close the dialog
@@ -59,7 +94,7 @@ export default function MtCircelLayout() {
         setTpNumber("");
         setProfilePhoto(null);
         setOpen(false);
-        <Alert severity="success">This is a success Alert.</Alert>
+        <Alert severity="success">This is a success Alert.</Alert>;
 
         // Fetch the updated data after adding a new contact
         fetchContacts();
@@ -72,9 +107,18 @@ export default function MtCircelLayout() {
   };
 
   // Function to fetch contacts from Firebase
+  // Function to fetch contacts from Firebase
   const fetchContacts = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, "contacts"));
+      const user = auth.currentUser; // Get the current authenticated user
+      if (!user) {
+        throw new Error("No user is logged in");
+      }
+
+      // Fetch contacts that belong to the current user
+      const querySnapshot = await getDocs(
+        query(collection(db, "contacts"), where("userId", "==", user.uid))
+      );
       const contactList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -89,17 +133,7 @@ export default function MtCircelLayout() {
   useEffect(() => {
     fetchContacts();
   }, []);
-  const handleDeleteContact = async (id) => {
-    try {
-      // Code to delete the contact from Firestore
-      await deleteDoc(doc(db, "contacts", id));
-      <Alert severity="success">This is a success Alert.</Alert>
-      fetchContacts(); // Refresh the contact list
-    } catch (error) {
-      console.error("Error deleting contact: ", error);
-    }
-  };
-  
+
   return (
     <div>
       <Header title="My Circle" />
@@ -110,8 +144,8 @@ export default function MtCircelLayout() {
             key={contact.id}
             name={contact.name}
             tpNumber={contact.tpNumber}
-            photoURL={contact.photoURL} 
-            onDelete={() => handleDeleteContact(contact.id)}// Pass photo URL to ContactCard
+            photoURL={contact.photoURL}
+            onDelete={() => handleDeleteContact(contact.id)} // Pass photo URL to ContactCard
           />
         ))}
       </Container>
