@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import RestoreIcon from "@mui/icons-material/Restore";
+import RestoreIcon from "@mui/icons-material/Home";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import NotListedLocationIcon from "@mui/icons-material/NotListedLocation";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -33,7 +33,7 @@ export default function FixedBottomNavigation() {
         onChange={(event, newValue) => handleNavigation(newValue)}
       >
         <BottomNavigationAction label="Home" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="My circel" icon={<AccountBoxIcon />} />
+        <BottomNavigationAction label="My circle" icon={<AccountBoxIcon />} />
         <BottomNavigationAction
           label="Location"
           icon={<NotListedLocationIcon />}
